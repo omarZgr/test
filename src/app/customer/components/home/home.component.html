@@ -1,0 +1,108 @@
+<section class="mt-20 sm:mt-0 sm:w-4/5 grid grid-cols-1 gap-y-6 p-2 mx-auto">
+  <form
+    [formGroup]="searchForm"
+    (submit)="getProductByName()"
+    class="mx-auto sm:mt-24"
+  >
+    <input
+      type="search"
+      class="mx-auto border border-gray-300 rounded-md p-2 bg-slate-200 focus:outline-none"
+      placeholder="Search"
+      formControlName="title"
+    />
+  </form>
+
+  <div
+    class="productes grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:grid-cols-3"
+  >
+    <div
+      class="product shadow-2xl rounded-md p-5 flex flex-col gap-y-3"
+      *ngFor="let product of products"
+    >
+      <div class=" ">
+        <img
+          [src]="product.processedImg"
+          class="mx-auto h-52 w-52"
+          [alt]="product.img"
+        />
+      </div>
+
+      <h2 class="font-semibold text-blue-600">{{ product.name }}</h2>
+      <p>
+        {{ product.description }}
+      </p>
+
+      <div class="flex flex-row justify-between shadow-xl p-2">
+        <p>Price :{{ product.price }}</p>
+        <!---->
+        <p>Category : {{ product.category.name }}</p>
+      </div>
+
+      <div
+        class="flex flex-row justify-center gap-x-3 shadow-sm p-2 sm:grid sm:grid-cols-2 sm:gap-y-2"
+      >
+        <a
+          class="bg-violet-400 p-2 rounded-md"
+          [routerLink]="['/customer/faq/', product.id]"
+          >FAQ</a
+        >
+
+        <!-- After Login , we can get User id from storage-->
+
+        <button
+          (click)="addToCart(product.id)"
+          class="block bg-orange-300 p-2 rounded-md"
+          type="button"
+        >
+          Add To Cart
+        </button>
+        <div class="w-fit p-2 flex flex-wrap">
+          <button (click)="favoris(product.id)">
+            <img
+              class="h-8"
+              src="https://img.icons8.com/ios-filled/50/like--v1.png"
+              alt="like--v1"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="products.length == 0"
+    class="rounded-md p-5 w-fit mx-auto my-auto border border-red-500"
+  >
+    <h2 class="">No products found.</h2>
+  </div>
+</section>
+
+<div
+  *ngIf="showNotification"
+  class="fixed bottom-0 right-0 m-4 bg-green-500 text-white p-4 rounded shadow"
+>
+  Product added to cart successfully.
+</div>
+
+<div
+  *ngIf="showProductExistNotification"
+  class="fixed bottom-0 right-0 m-4 bg-red-500 text-white p-4 rounded shadow"
+>
+  Product already selected.
+</div>
+
+
+<div
+  *ngIf="showNotificationFavorisTrue"
+  class="fixed bottom-0 right-0 m-4 bg-green-500 text-white p-4 rounded shadow"
+>
+  Product added to Favoris.
+</div>
+
+
+<div
+  *ngIf="showNotificationCantFavorisFalse"
+  class="fixed bottom-0 right-0 m-4 bg-red-500 text-white p-4 rounded shadow"
+>
+  Product already in Favoris List.
+</div>

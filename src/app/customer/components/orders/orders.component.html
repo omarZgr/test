@@ -1,0 +1,195 @@
+<section
+  class="mt-20  mx-auto sm:w-4/5 grid grid-cols-1 gap-y-6 p-2 "
+>
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Pending Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">Amount</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersPending" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.totalAmount === '0' ? '-----' : order.totalAmount }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2 mx-auto">
+            <div>
+              <a
+              [routerLink]="['/customer/orderDetails/', order.id]"
+                class="bg-violet-400 p-2 rounded-md mx-auto w-fit"
+                >Details</a
+              >
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="ordersPending.length == 0">
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Placed Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersPlaced" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+            [routerLink]="['/customer/orderDetails/', order.id]"
+              class="bg-violet-400 p-2 rounded-md"
+              >Details</a
+            >
+          </td>
+      
+        </tr>
+        <tr *ngIf="ordersPlaced.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Shipped Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersShipped" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+            [routerLink]="['/customer/orderDetails/', order.id]"
+
+              class="bg-violet-400 p-2 rounded-md"
+              >Details</a
+            >
+          </td>
+      
+        </tr>
+        <tr *ngIf="ordersShipped.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Delivered Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersDelivred" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+            [routerLink]="['/customer/orderDetails/', order.id]"
+
+              class="bg-violet-400 p-2 rounded-md"
+              >Details</a
+            >
+          </td>
+        </tr>
+        <tr *ngIf="ordersDelivred.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+

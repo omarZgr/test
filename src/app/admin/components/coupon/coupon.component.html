@@ -1,0 +1,73 @@
+<section class="mt-20 mx-auto sm:w-4/5 grid grid-cols-1 gap-y-6 p-2">
+
+  
+  <div class="overflow-x-auto mt-7 px-3">
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">Coupon ID</th>
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">Discount</th>
+          <th class="px-4 py-2">Code</th>
+          <th class="px-4 py-2">Expiration Date</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let coupon of coupons" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ coupon.id }}</td>
+          <td class="border px-4 py-2">{{ coupon.name }}</td>
+          <td class="border px-4 py-2">{{ coupon.discount }}</td>
+          <td class="border px-4 py-2">{{ coupon.code }}</td>
+          <td class="border px-4 py-2">
+            {{ coupon.expirationDate.substring(0, 10) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form [formGroup]="couponForm">
+    <div
+      class="login mx-5 mt-16 grid grid-cols-1 gap-y-5 rounded-md bg-white p-3 shadow-lg sm:w-2/4 sm:mx-auto"
+    >
+      <h2 class="text-2xl font-semibold text-center mb-6">Add Coupon</h2>
+
+      <div>
+        <input
+        type="text"
+        class="rounded-lg border border-gray-300 p-2"
+        placeholder="Name"
+        formControlName="name"
+      />
+      <p id="nameInUse" class="text-red-500 text-xs italic" *ngIf="CouponNameExist">
+        Ce nom est déjà utilisé.
+      </p>
+      </div>
+
+   
+      <input
+        type="text"
+        class="rounded-lg border border-gray-300 p-2"
+        placeholder="Code"
+        formControlName="code"
+      />
+      <input
+        type="number"
+        class="rounded-lg border border-gray-300 p-2"
+        placeholder="Discount"
+        formControlName="discount"
+      />
+      <input
+        type="date"
+        class="rounded-lg border border-gray-300 p-2"
+        formControlName="expirationDate"
+      />
+      <button
+        type="submit"  [disabled]="!couponForm.valid" (click)="addCoupon()"
+        class="w-full py-2 px-4 required rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Ajouter
+      </button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,117 @@
+<section class="mt-20 mx-auto sm:w-4/5 grid grid-cols-1 gap-y-6 p-2">
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <div
+      class="w-full my-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="flex justify-end px-4 pt-4">
+        <!-- Dropdown menu -->
+        <div
+          id="dropdown"
+          class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+        >
+          <ul class="py-2" aria-labelledby="dropdownButton">
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Edit</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Export Data</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Delete</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center pb-10">
+        <img 
+
+        [src]="imgUser"
+        
+        class="w-24 h-24 mb-3 rounded-full shadow-lg" alt="Bonnie image" />
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          {{ userName }}
+        </h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400"
+          >Full Name :{{ firstName }} - {{ lastName }}</span
+        >
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{
+          email
+        }}</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{
+          dateCreation
+        }}</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400"
+          >Visual Designer</span
+        >
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col my-auto items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+    >
+      <div class="flex flex-col justify-between p-4 leading-normal">
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+          Total Amount :
+          <span class="mb-3 text-gray-700 dark:text-gray-400 font-semibold"
+            >{{totalAmount}} DH</span
+          >
+        </h5>
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+        Discount  :
+          <span class="mb-3 text-gray-700 dark:text-gray-400 font-semibold"
+            >{{discount}}DH</span
+          >
+        </h5>
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+        Amount   :
+          <span class="mb-3 text-gray-700 dark:text-gray-400 font-semibold"
+            >{{payment}} DH</span
+          >
+        </h5>
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-3 grid grid-cols-1 gap-y-2 bg-[#93decaa4] p-3">
+    <div class="grid grid-cols-1 gap-y-4">
+      <div
+        *ngFor="let card of cards"
+        class="grid grid-cols-1 gap-y-2 rounded-lg bg-[#dab047] p-3 shadow-md sm:grid-cols-5"
+      >
+        <img
+          [src]="card.processedImg"
+          class="mx-auto h-14 w-14 bg-black"
+          alt=""
+        />
+        <h2 class="text-center font-serif text-xl my-auto">
+          {{ card.productDto.name }}
+        </h2>
+        <p class="text-center my-auto">Price : {{ card.productDto.price }}</p>
+        <p class="text-center my-auto">Quantity : {{ card.quantity }}</p>
+        <p class="text-center my-auto">Payment : {{ card.price }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>

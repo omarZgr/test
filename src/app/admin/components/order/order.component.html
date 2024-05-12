@@ -1,0 +1,368 @@
+<section class="mt-20 mx-auto sm:w-4/5 grid grid-cols-1 gap-y-6 p-2">
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Pending Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">Amount</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersPending" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.totalAmount }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2 mx-auto">
+            <div>
+              <a
+                class="bg-violet-400 p-2 rounded-md mx-auto w-fit"
+                [routerLink]="['/admin/orderDetails/', order.id]"
+                >Details</a
+              >
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="ordersPending.length == 0">
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+          <td class="border px-4 py-2 font-serif">empty</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Placed Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+          <th class="px-4 py-2">Action</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersPlaced" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+              class="bg-violet-400 p-2 rounded-md"
+              [routerLink]="['/admin/orderDetails/', order.id]"
+              >Details</a
+            >
+          </td>
+          <td class="border px-4 py-2">
+            <button
+              class="bg-blue-500 rounded w-fit mx-auto p-1 px-2"
+              (click)="onSelect($event, order.id, order.userDto.email)"
+            >
+            To Shipped
+          </button>
+         
+          </td>
+        </tr>
+        <tr *ngIf="ordersPlaced.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Shipped Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+          <th class="px-4 py-2">Action</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersShipped" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+              class="bg-violet-400 p-2 rounded-md"
+              [routerLink]="['/admin/orderDetails/', order.id]"
+              >Details</a
+            >
+          </td>
+          <td class="border px-4 py-2">
+            <button
+              class="bg-blue-500 rounded w-fit mx-auto p-1 px-2"
+              (click)="onSelectFromShipped($event, order.id, order.userDto.email)"
+            >
+            To Delivered
+          </button>
+         
+          </td>
+        </tr>
+        <tr *ngIf="ordersShipped.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-7 bg-[#e7e4e4] p-4">
+    <div class="mx-auto w-fit m-2">
+      <h1 class="font-bold text-lg">Delivered Orders</h1>
+    </div>
+
+    <table class="min-w-full table-auto">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2">TrackerID</th>
+          <th class="px-4 py-2">Description</th>
+          <th class="px-4 py-2">Payment</th>
+          <th class="px-4 py-2">Adress</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Details</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr *ngFor="let order of ordersDelivred" class="hover:bg-gray-100">
+          <td class="border px-4 py-2">{{ order.trackingId }}</td>
+          <td class="border px-4 py-2">{{ order.orderDescription }}</td>
+          <td class="border px-4 py-2">{{ order.payment }}</td>
+          <td class="border px-4 py-2">{{ order.adress }}</td>
+          <td class="border px-4 py-2">
+            {{ order.dateCreation.substring(0, 10) }}
+          </td>
+          <td class="border px-4 py-2">
+            <a
+              class="bg-violet-400 p-2 rounded-md"
+              [routerLink]="['/admin/orderDetails/', order.id]"
+              >Details</a
+            >
+          </td>
+        </tr>
+        <tr *ngIf="ordersDelivred.length == 0">
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+          <td class="border px-4 py-2 font-serif">----</td>
+        </tr>
+        <!-- More rows... -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- modal.component.html -->
+
+<div
+  *ngIf="isModalOpenChangeStatusFromPlaced"
+  id="popup-modal"
+  tabindex="-1"
+  class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50"
+>
+  <div class="relative p-4 w-full max-w-md">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button
+        (click)="
+          toggleModalChangeStatusFromPlaced(idOrderToChangeStatusFromPlaced)
+        "
+        type="button"
+        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          Are you sure you want Change Status  ?
+          <p>(To Shipped)</p>
+          <span class="text-sm text-gray-500 dark:text-gray-400"
+            >Message send to : {{ emailToSend }}
+          </span>
+        </h3>
+        <button
+          (click)="confirmChangeFromPlaced()"
+          type="button"
+          class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+        >
+          Yes, I'm sure
+        </button>
+        <button
+          (click)="
+            toggleModalChangeStatusFromPlaced(idOrderToChangeStatusFromPlaced)
+          "
+          type="button"
+          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          No, cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div
+  *ngIf="isModalOpenChangeStatusFromShipped"
+  id="popup-modal"
+  tabindex="-1"
+  class="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50"
+>
+  <div class="relative p-4 w-full max-w-md">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button
+        (click)="
+          toggleModalChangeStatusFromShipped(idOrderToChangeStatusFromShipped)
+        "
+        type="button"
+        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          Are you sure you want Change Status  ?
+          <p>(To Delivered)</p>
+          <span class="text-sm text-gray-500 dark:text-gray-400"
+            >Message send to : {{ emailToSend }}
+          </span>
+        </h3>
+        <button
+          (click)="confirmChangeFromShipped()"
+          type="button"
+          class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+        >
+          Yes, I'm sure
+        </button>
+        <button
+          (click)="
+            toggleModalChangeStatusFromShipped(idOrderToChangeStatusFromShipped)
+          "
+          type="button"
+          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          No, cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

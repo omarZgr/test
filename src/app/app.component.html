@@ -1,0 +1,6 @@
+
+<app-navbar-admin *ngIf="isAdminLoggedIn"></app-navbar-admin>
+<app-navbar-customer *ngIf="isCustomerLoggedIn"></app-navbar-customer>
+<app-navbar-guest *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn"></app-navbar-guest>
+
+<router-outlet />

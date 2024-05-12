@@ -1,0 +1,120 @@
+<div
+  class="m-6 mt-24 mx-auto flex w-3/4 sm:w-fit flex-col gap-y-3 rounded-2xl bg-[#e6e2e2] p-2"
+>
+  <form [formGroup]="profileForm">
+    <div class="grid w-fit p-3 sm:grid-cols-2 mx-auto gap-x-2 gap-y-2">
+      <div class="image-preview">
+        <img id="preview" [src]="imgUser" alt="Image Preview" />
+      </div>
+      <div class="flex flex-col gap-y-3 sm:my-auto">
+        <input
+          id="file-upload"
+          type="file"
+          class="hidden w-fit"
+          required
+          (change)="previewImage($event)"
+        />
+        <label
+          for="file-upload"
+          class="rounded-lg bg-[#244a8c] p-4 font-mono text-xl text-white cursor-pointer"
+          >Change Picture</label
+        >
+      </div>
+
+      <div class="image-preview hidden">
+        <img id="preview" />
+      </div>
+    </div>
+
+    <div class="grid gap-y-4">
+      <div class="grid sm:grid-cols-2 gap-y-3 sm:gap-x-2">
+        <div class="flex flex-col">
+          <label class="font-normal text-[#244a8c]">Your first Name</label>
+          <input
+            class="rounded-md p-2 font-normal focus:border focus:border-[#244a8c] focus:outline-none"
+            formControlName="firstName"
+            [placeholder]="firstName"
+            type="text"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label class="font-normal text-[#244a8c]">Your last Name</label>
+          <input
+            class="rounded-md p-2 font-normal focus:border focus:border-[#244a8c] focus:outline-none"
+            formControlName="lastName"
+            [placeholder]="lastName"
+            type="text"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="font-normal text-[#244a8c]">Your UserName</label>
+        <input
+          class="rounded-md p-2 font-normal focus:border focus:border-[#244a8c] focus:outline-none"
+          formControlName="userName"
+          [placeholder]="userName"
+          type="text"
+        />
+        <p
+          id="nameInUse"
+          class="text-red-500 text-xs italic"
+          *ngIf="userNameExist"
+        >
+          Ce nom est déjà utilisé.
+        </p>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="font-normal text-[#244a8c]">Your Email</label>
+        <input
+          class="rounded-md p-2 font-normal focus:border focus:border-[#244a8c] focus:outline-none"
+          formControlName="email"
+          [placeholder]="email"
+          type="text"
+        />
+        <p
+          id="nameInUse"
+          class="text-red-500 text-xs italic"
+          *ngIf="emailExist"
+        >
+          Cette email est déjà utilisé.
+        </p>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="font-normal text-[#244a8c]">Your Password</label>
+        <div class="relative">
+          <input
+            class="rounded-md p-2 font-normal focus:border focus:border-[#244a8c] focus:outline-none"
+            formControlName="password"
+            [placeholder]="password"
+          />
+          <button
+            class="absolute inset-y-0 right-0 px-3 flex items-center"
+            (click)="togglePasswordVisibility()"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center my-3 gap-x-3">
+      <button
+        (click)="updateUser()"
+        [style.background-color]="profileForm.valid && (selectedFile!=undefined || imgUser!='' ) ? 'green' : 'red'"
+        [disabled]="!profileForm.valid && (selectedFile!=undefined || imgUser!='' ) "
+        class="rounded-xl p-2 px-3 font-mono text-white hover:bg-[#0d46d7]"
+      >
+        Change
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<div
+  *ngIf="showNotificationChangeSucess"
+  class="fixed bottom-0 right-0 m-4 bg-green-500 text-white p-4 rounded shadow"
+>
+  Product added to Favoris.
+</div>

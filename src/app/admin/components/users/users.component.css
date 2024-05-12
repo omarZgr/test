@@ -1,0 +1,15 @@
+.image-preview {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 50%; /* Make it circular */
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Ensure the image inside is also circular */
+  }
+  
